@@ -29,15 +29,15 @@ class MainActivity : AppCompatActivity() {
 
         //setContentView(R.layout.activity_main)
         // доступ по findViewById
-        //val button = findViewById<ImageButton>(R.id.favoriteButton)
+        //val button = findViewById<ImageButton>(R.id.likeButton)
 
         // synthetic см. build.gradle (app)
-        //val button = favoriteButton
+        //val button = likeButton
 
         val post = Post(1,
                         "Аффтор",
-                        Date(2022,8,16),
-                       "text",
+                        Date(2022,1,1,0,0,0),
+                       "С новым годом!",
                        false,
                        1099,
                        680,
@@ -49,7 +49,6 @@ class MainActivity : AppCompatActivity() {
             authorName.text = post.authorName
             authorAvatarImageView.setImageResource(R.drawable.ic_avatar_24)
             postDate.text = post.postDate.toLocaleString()
-            toString().
             postText.text = post.postText
             likeCount.text = toText(post.likesCount)
             shareCount.text = toText(post.shareCount)
