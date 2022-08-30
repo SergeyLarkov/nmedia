@@ -7,34 +7,85 @@ import ru.netology.nmedia.data.PostRepository
 import java.util.*
 
 class PostRepositoryImpl: PostRepository {
-    private val post = Post(1,
+    private val posts = listOf(
+        Post(1,
         "Аффтор",
         Date(2022,1,1,0,0,0),
         "С новым годом!",
         false,
         1099,
         680,
-        2656)
+        2656),
+        Post(2,
+        "Аффтор",
+        Date(2022,1,1,0,0,0),
+        "Happy New Year!",
+        false,
+        0,
+        0,
+        0),
+        Post(3,
+        "Аффтор",
+        Date(2022,1,1,0,0,0),
+        "S Novim Godom!",
+        false,
+        0,
+        0,
+        0),
+        Post(4,
+            "Аффтор",
+            Date(2022,1,1,0,0,0),
+            "S Novim Godom!",
+            false,
+            0,
+            0,
+            0),
+        Post(5,
+            "Аффтор",
+            Date(2022,1,1,0,0,0),
+            "S Novim Godom!",
+            false,
+            0,
+            0,
+            0),
+        Post(6,
+            "Аффтор",
+            Date(2022,1,1,0,0,0),
+            "S Novim Godom!",
+            false,
+            0,
+            0,
+            0),
+        Post(7,
+            "Аффтор",
+            Date(2022,1,1,0,0,0),
+            "S Novim Godom!",
+            false,
+            0,
+            0,
+            0))
 
-    private val data = MutableLiveData(post)
+    private val data = MutableLiveData(posts)
 
-    override fun get(): LiveData<Post>  = data
+    override fun getAll(): LiveData<List<Post>>  = data
 
-    override fun like() {
-        val post = data.value
-        if (post != null) {
-            data.value = post.copy(
-                liked = !post.liked,
-                likesCount = if (!post.liked) post.likesCount + 1 else post.likesCount - 1
-            )
+    override fun like(post:Post) {
+        val posts = data.value!!.map {
+            if (it.id == post.id ) it.copy(
+                liked = !it.liked,
+                likesCount = if (!it.liked) it.likesCount + 1 else it.likesCount - 1
+            ) else it
         }
+        data.value = posts
     }
 
-    override fun share() {
-        val post = data.value
-        if (post != null) {
-            data.value = post.copy(shareCount = post.shareCount + 1)
-        }
+    override fun share(post:Post) {
+        val posts = data.value!!.map { if (it.id == post.id ) it.copy(shareCount = it.shareCount + 1) else it }
+        data.value = posts
+    }
+
+    override fun get(id: Long): Post? {
+        return data.value!!.find { post: Post -> post.id == id }
     }
 
 }

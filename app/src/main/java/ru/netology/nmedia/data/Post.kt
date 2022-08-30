@@ -3,7 +3,7 @@ package ru.netology.nmedia.data
 import java.util.*
 
 data class Post(
-    val id: Int,
+    val id: Long,
     val authorName: String,
     val postDate: Date,
     val postText:String,
