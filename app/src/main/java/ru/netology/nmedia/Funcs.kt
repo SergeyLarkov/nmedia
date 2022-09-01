@@ -1,5 +1,11 @@
 package ru.netology.nmedia
 
+import android.content.Context
+import android.view.View
+import android.view.inputmethod.InputMethodManager
+import ru.netology.nmedia.data.Post
+import java.util.*
+
 fun toText(value: Int): String {
     val i: Int
     val d: Int
@@ -18,4 +24,76 @@ fun toText(value: Int): String {
         units = ""
     }
     return if (d != 0) i.toString() + "." + d.toString() + units else i.toString() + units
+}
+
+fun hideKeyboard(view: View) {
+    val imm = view.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+    imm.hideSoftInputFromWindow(view.windowToken,0)
+}
+
+fun showKeyboard(view: View) {
+    val imm = view.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+    //imm.showSoftInput(view,0)
+    imm.toggleSoftInput(InputMethodManager.SHOW_FORCED,InputMethodManager.HIDE_IMPLICIT_ONLY);
+}
+
+fun getPostsList(): List<Post> {
+ val posts = listOf<Post>(
+    Post(1,
+        "Аффтор",
+        Date(2022,1,1),
+        "С новым годом!",
+        false,
+        1099,
+        680,
+        2656),
+    Post(2,
+        "Аффтор",
+        Date(2022,1,1,0,0,0),
+        "Happy New Year!",
+        false,
+        0,
+        0,
+        0),
+    Post(3,
+        "Аффтор",
+        Date(2022,1,1,0,0,0),
+        "S Novim Godom!",
+        false,
+        0,
+        0,
+        0),
+    Post(4,
+        "Аффтор",
+        Date(2022,1,1,0,0,0),
+        "S Novim Godom!",
+        false,
+        0,
+        0,
+        0),
+    Post(5,
+        "Аффтор",
+        Date(2022,1,1,0,0,0),
+        "S Novim Godom!",
+        false,
+        0,
+        0,
+        0),
+    Post(6,
+        "Аффтор",
+        Date(2022,1,1,0,0,0),
+        "S Novim Godom!",
+        false,
+        0,
+        0,
+        0),
+    Post(7,
+        "Аффтор",
+        Date(2022,1,1,0,0,0),
+        "S Novim Godom!",
+        false,
+        0,
+        0,
+        0))
+    return posts
 }

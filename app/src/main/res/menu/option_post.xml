@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/dropdown_menu">
+    <item
+        android:id="@+id/edit"
+        android:title="@string/editmenu"
+        />
+    <item
+        android:id="@+id/remove"
+        android:title="@string/removemenu"
+    />
+</menu>

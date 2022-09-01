@@ -4,68 +4,12 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import ru.netology.nmedia.data.Post
 import ru.netology.nmedia.data.PostRepository
+import ru.netology.nmedia.getPostsList
 import java.util.*
 
-class PostRepositoryImpl: PostRepository {
-    private val posts = listOf(
-        Post(1,
-        "Аффтор",
-        Date(2022,1,1,0,0,0),
-        "С новым годом!",
-        false,
-        1099,
-        680,
-        2656),
-        Post(2,
-        "Аффтор",
-        Date(2022,1,1,0,0,0),
-        "Happy New Year!",
-        false,
-        0,
-        0,
-        0),
-        Post(3,
-        "Аффтор",
-        Date(2022,1,1,0,0,0),
-        "S Novim Godom!",
-        false,
-        0,
-        0,
-        0),
-        Post(4,
-            "Аффтор",
-            Date(2022,1,1,0,0,0),
-            "S Novim Godom!",
-            false,
-            0,
-            0,
-            0),
-        Post(5,
-            "Аффтор",
-            Date(2022,1,1,0,0,0),
-            "S Novim Godom!",
-            false,
-            0,
-            0,
-            0),
-        Post(6,
-            "Аффтор",
-            Date(2022,1,1,0,0,0),
-            "S Novim Godom!",
-            false,
-            0,
-            0,
-            0),
-        Post(7,
-            "Аффтор",
-            Date(2022,1,1,0,0,0),
-            "S Novim Godom!",
-            false,
-            0,
-            0,
-            0))
-
+class PostRepositoryImpl(posts:List<Post>): PostRepository {
     private val data = MutableLiveData(posts)
+    private var newPostId: Long = 1000L
 
     override fun getAll(): LiveData<List<Post>>  = data
 
@@ -88,4 +32,18 @@ class PostRepositoryImpl: PostRepository {
         return data.value!!.find { post: Post -> post.id == id }
     }
 
+    override fun delete(post:Post) {
+        val posts = data.value!!.filter { it.id !=post.id }
+        data.value = posts
+    }
+
+    override fun new(post:Post) {
+        data.value = listOf<Post>(post.copy(newPostId)) + data.value!!
+        newPostId++
+    }
+
+    override fun edit(postId: Long, text: String) {
+        val posts = data.value!!.map { if (it.id == postId ) it.copy(postText = text) else it }
+        data.value = posts
+    }
 }

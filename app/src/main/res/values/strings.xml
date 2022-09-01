@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">NMedia</string>
     <string name="greeting">NMedia!</string>
+    <string name="removemenu">Remove</string>
+    <string name="editmenu">Edit</string>
+    <string name="hint">Enter post text</string>
 </resources>

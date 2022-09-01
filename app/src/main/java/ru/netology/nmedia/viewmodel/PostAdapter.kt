@@ -2,17 +2,44 @@ package ru.netology.nmedia.viewmodel
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.PopupMenu
 import androidx.recyclerview.widget.RecyclerView
 import ru.netology.nmedia.R
 import ru.netology.nmedia.data.Post
+import ru.netology.nmedia.data.ClickEvents
 import ru.netology.nmedia.databinding.CardPostBinding
 import ru.netology.nmedia.toText
 
 class PostViewHolder(private val binding: CardPostBinding,
-                     private val onLikeClicked: (post: Post) -> Unit,
-                     private val onShareClicked: (post: Post) -> Unit): RecyclerView.ViewHolder(binding.root) {
+                     private val clickEvents:ClickEvents): RecyclerView.ViewHolder(binding.root) {
+
+    private lateinit var post: Post
+
+    private val popupMenu = PopupMenu(itemView.context, binding.optionsButton).apply {
+        inflate(R.menu.option_post)
+        setOnMenuItemClickListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.remove -> {
+                    clickEvents.onDeleteClicked(post)
+                    true
+                }
+                R.id.edit -> {
+                    clickEvents.onEditClicked(post)
+                    true
+                }
+                else -> false
+            }
+        }
+    }
+
+    init {
+        binding.likeButton.setOnClickListener { clickEvents.onLikeClicked(post) }
+        binding.shareButton.setOnClickListener { clickEvents.onShareClicked(post) }
+        binding.optionsButton.setOnClickListener{ popupMenu.show() }
+    }
 
     fun render(post: Post) {
+        this.post = post
         with(binding) {
             authorName.text = post.authorName
             authorAvatarImageView.setImageResource(R.drawable.ic_avatar_24)
@@ -26,14 +53,11 @@ class PostViewHolder(private val binding: CardPostBinding,
             } else {
                 likeButton.setImageResource(R.drawable.ic_like_24)
             }
-            likeButton.setOnClickListener { onLikeClicked(post) }
-            shareButton.setOnClickListener { onShareClicked(post) }
         }
     }
 }
 
-class PostAdapter(private val onLikeClicked: (post: Post) -> Unit,
-                  private val onShareClicked: (post: Post) -> Unit) : RecyclerView.Adapter<PostViewHolder>() {
+class PostAdapter(private val clickEvents:ClickEvents) : RecyclerView.Adapter<PostViewHolder>() {
 
     var list = emptyList<Post>()
         set(value) {
@@ -45,7 +69,7 @@ class PostAdapter(private val onLikeClicked: (post: Post) -> Unit,
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostViewHolder {
         val binding = CardPostBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return PostViewHolder(binding, onLikeClicked, onShareClicked)
+        return PostViewHolder(binding, clickEvents)
     }
 
     override fun onBindViewHolder(holder: PostViewHolder, position: Int) {
