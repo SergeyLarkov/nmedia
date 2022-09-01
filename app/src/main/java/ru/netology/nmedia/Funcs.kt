@@ -33,8 +33,8 @@ fun hideKeyboard(view: View) {
 
 fun showKeyboard(view: View) {
     val imm = view.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-    //imm.showSoftInput(view,0)
-    imm.toggleSoftInput(InputMethodManager.SHOW_FORCED,InputMethodManager.HIDE_IMPLICIT_ONLY);
+    imm.showSoftInput(view,0)
+    //imm.toggleSoftInput(InputMethodManager.SHOW_FORCED,InputMethodManager.HIDE_IMPLICIT_ONLY);
 }
 
 fun getPostsList(): List<Post> {

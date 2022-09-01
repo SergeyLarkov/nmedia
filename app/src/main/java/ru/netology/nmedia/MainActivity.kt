@@ -30,10 +30,10 @@ class MainActivity : AppCompatActivity() {
         }
 
         fun endContextEdit(view:View) {
-            binding.content.clearFocus()
             viewModel.setEditPostEmpty()
+            binding.content.clearFocus()
             hideKeyboard(view)
-            binding.discardPostButton.visibility = GONE
+            //binding.discardPostButton.visibility = GONE
         }
 
         binding.applyPostButton.setOnClickListener {
@@ -61,11 +61,11 @@ class MainActivity : AppCompatActivity() {
                 }
 
             }
-            endContextEdit(it)
+            endContextEdit(binding.content)
         }
 
         binding.discardPostButton.setOnClickListener {
-            endContextEdit(it)
+            endContextEdit(binding.content)
         }
 
         viewModel.editPost.observe(this) {
