@@ -29,6 +29,6 @@
 
     <style name="Widget.Theme.LikeButton"
         parent="Widget.Theme.Button">
-        <item name="buttonTint">@color/like_button_tint</item>
+        <item name="iconTint">@color/like_button_tint</item>
     </style>
 </resources>
