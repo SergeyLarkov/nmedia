@@ -6,7 +6,6 @@ import ru.netology.nmedia.data.ClickEvents
 import ru.netology.nmedia.data.PostRepository
 import ru.netology.nmedia.data.Post
 import ru.netology.nmedia.getPostsList
-import ru.netology.nmedia.showKeyboard
 import java.util.*
 
 class PostViewModel: ViewModel(), ClickEvents {

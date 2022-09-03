@@ -33,7 +33,6 @@ class MainActivity : AppCompatActivity() {
             viewModel.setEditPostEmpty()
             binding.content.clearFocus()
             hideKeyboard(view)
-            //binding.discardPostButton.visibility = GONE
         }
 
         binding.applyPostButton.setOnClickListener {
@@ -59,9 +58,8 @@ class MainActivity : AppCompatActivity() {
                         )
                     }
                 }
-
+                endContextEdit(this)
             }
-            endContextEdit(binding.content)
         }
 
         binding.discardPostButton.setOnClickListener {
@@ -69,19 +67,23 @@ class MainActivity : AppCompatActivity() {
         }
 
         viewModel.editPost.observe(this) {
-            binding.content.setText(it.postText)
-            if (binding.content.text.isNotBlank()) {
-                binding.content.requestFocus()
-                showKeyboard(binding.content)
+            with (binding.content) {
+                setText(it.postText)
+                if (text.isNotBlank()) {
+                    requestFocus()
+                    showKeyboard(this)
+                }
             }
         }
 
         binding.content.setOnFocusChangeListener { _, _ ->
-          if (binding.content.isFocused) {
-              binding.discardPostButton.visibility = VISIBLE
-          } else {
-              binding.discardPostButton.visibility = GONE
-          }
+            with(binding) {
+                if (content.isFocused) {
+                    discardPostButton.visibility = VISIBLE
+                } else {
+                    discardPostButton.visibility = GONE
+                }
+            }
         }
     }
 

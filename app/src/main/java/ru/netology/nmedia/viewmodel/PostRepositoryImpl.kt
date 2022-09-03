@@ -43,7 +43,7 @@ class PostRepositoryImpl(posts:List<Post>): PostRepository {
     }
 
     override fun edit(postId: Long, text: String) {
-        val posts = data.value!!.map { if (it.id == postId ) it.copy(postText = text) else it }
+        val posts = data.value!!.map { if (it.id == postId) it.copy(postText = text) else it }
         data.value = posts
     }
 }

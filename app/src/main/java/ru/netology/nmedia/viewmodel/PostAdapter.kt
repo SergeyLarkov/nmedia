@@ -45,14 +45,10 @@ class PostViewHolder(private val binding: CardPostBinding,
             authorAvatarImageView.setImageResource(R.drawable.ic_avatar_24)
             postDate.text = post.postDate.toString()
             postText.text = post.postText
-            likeCount.text = toText(post.likesCount)
-            shareCount.text = toText(post.shareCount)
-            viewCount.text = toText(post.viewCount)
-            if (post.liked) {
-                likeButton.setImageResource(R.drawable.ic_liked_24)
-            } else {
-                likeButton.setImageResource(R.drawable.ic_like_24)
-            }
+            likeButton.isChecked = post.liked
+            likeButton.text = toText(post.likesCount)
+            shareButton.text = toText(post.shareCount)
+            viewButton.text = toText(post.viewCount)
         }
     }
 }

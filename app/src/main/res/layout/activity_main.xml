@@ -39,16 +39,19 @@
         android:id="@+id/applyPostButton"
         android:layout_width="wrap_content"
         android:layout_height="@id/content"
-        android:background="@android:color/white"
+        android:background="@color/white"
+        android:contentDescription="apply post button"
         app:layout_constraintEnd_toStartOf="@id/discardPostButton"
         app:layout_constraintTop_toTopOf="@id/content"
         app:layout_constraintBottom_toBottomOf="@id/content"
         app:srcCompat="@drawable/ic_done_24"/>
+
     <ImageButton
         android:id="@+id/discardPostButton"
         android:layout_width="wrap_content"
         android:layout_height="@id/content"
-        android:background="@android:color/white"
+        android:background="@color/white"
+        android:contentDescription="discard post button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/content"
         app:layout_constraintBottom_toBottomOf="@id/content"
