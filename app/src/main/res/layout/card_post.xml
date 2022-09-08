@@ -13,7 +13,7 @@
         android:contentDescription="avatar"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:srcCompat="@drawable/ic_avatar_24" />
+        tools:srcCompat="@drawable/ic_avatar_24"/>
 
     <TextView
         android:id="@+id/authorName"
@@ -27,7 +27,7 @@
         app:layout_constraintEnd_toStartOf="@id/optionsButton"
         app:layout_constraintStart_toEndOf="@id/authorAvatarImageView"
         app:layout_constraintTop_toTopOf="@id/authorAvatarImageView"
-        tools:text="Имя автора поста" />
+        tools:text="Имя автора поста"/>
 
     <TextView
         android:id="@+id/postDate"
@@ -39,7 +39,7 @@
         app:layout_constraintEnd_toEndOf="@id/authorName"
         app:layout_constraintStart_toStartOf="@id/authorName"
         app:layout_constraintTop_toBottomOf="@id/authorName"
-        tools:text="01.01.2022 16:00" />
+        tools:text="01.01.2022 16:00"/>
 
     <Button
         android:id="@+id/optionsButton"
@@ -50,14 +50,14 @@
         android:contentDescription="options"
         app:icon="@drawable/ic_option_24"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/authorAvatarImageView" />
+        app:layout_constraintTop_toTopOf="@id/authorAvatarImageView"/>
 
     <androidx.constraintlayout.widget.Barrier
         android:id="@+id/headerBarrier"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:barrierDirection="bottom"
-        app:constraint_referenced_ids="authorAvatarImageView, postDate, optionsButton" />
+        app:constraint_referenced_ids="authorAvatarImageView, postDate, optionsButton"/>
 
     <ImageView
         android:id="@+id/videoPreview"
@@ -65,7 +65,7 @@
         android:layout_height="wrap_content"
         android:src="@drawable/preview"
         android:contentDescription="Video preview image"
-        app:layout_constraintTop_toBottomOf="@id/headerBarrier" />
+        app:layout_constraintTop_toBottomOf="@id/headerBarrier"/>
 
     <ImageButton
         android:id="@+id/imageButton"
@@ -78,14 +78,13 @@
         app:layout_constraintStart_toStartOf="@id/videoPreview"
         app:layout_constraintTop_toTopOf="@id/videoPreview"
         android:contentDescription="Play video button"
-        app:srcCompat="@android:drawable/ic_media_play" />
+        app:srcCompat="@android:drawable/ic_media_play"/>
 
     <androidx.constraintlayout.widget.Group
         android:id="@+id/video"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:constraint_referenced_ids="videoPreview, imageButton"
-        />
+        app:constraint_referenced_ids="videoPreview, imageButton"/>
 
 
     <TextView
@@ -96,7 +95,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/videoPreview"
-        tools:text="text" />
+        tools:text="text"/>
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/likeButton"
@@ -110,7 +109,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/postText"
         tools:checked="true"
-        tools:text="1009000" />
+        tools:text="1009000"/>
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/shareButton"
@@ -123,7 +122,7 @@
         app:icon="@drawable/ic_share_24"
         app:layout_constraintStart_toEndOf="@id/likeButton"
         app:layout_constraintTop_toTopOf="@id/likeButton"
-        tools:text="999100" />
+        tools:text="999100"/>
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/viewButton"
@@ -135,6 +134,6 @@
         app:icon="@drawable/ic_visibility_24"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/likeButton"
-        tools:text="100" />
+        tools:text="100"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

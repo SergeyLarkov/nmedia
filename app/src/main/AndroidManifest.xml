@@ -14,9 +14,6 @@
         android:theme="@style/Theme.NMedia"
         tools:targetApi="31">
         <activity
-            android:name=".ic_video_preview"
-            android:exported="false" />
-        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
@@ -30,9 +27,7 @@
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.SEND" />
-
                 <category android:name="android.intent.category.DEFAULT" />
-
                 <data android:mimeType="text/plain" />
             </intent-filter>
         </activity>

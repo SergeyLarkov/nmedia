@@ -35,7 +35,7 @@ class PostViewModel: ViewModel(), ClickEvents {
     }
 
     override fun onVideoClicked(post: Post) {
-        if (!post.urlVideo.isNullOrBlank()) {
+        if (post.urlVideo.isNotBlank()) {
             videoEvent.value = post.urlVideo
         }
     }
