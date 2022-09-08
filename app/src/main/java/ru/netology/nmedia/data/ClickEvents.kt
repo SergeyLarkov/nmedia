@@ -5,4 +5,5 @@ interface ClickEvents {
     fun onShareClicked(post: Post)
     fun onDeleteClicked(post: Post)
     fun onEditClicked(post: Post)
+    fun onAddClicked()
 }

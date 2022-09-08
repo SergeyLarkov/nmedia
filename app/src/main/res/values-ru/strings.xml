@@ -5,4 +5,5 @@
     <string name="removemenu">Удалить</string>
     <string name="editmenu">Редактировать</string>
     <string name="hint">Текст поста</string>
+    <string name="share_caption">Поделиться</string>
 </resources>

@@ -1,26 +1,23 @@
 package ru.netology.nmedia
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
-import android.view.View.GONE
-import android.view.View.VISIBLE
 import androidx.activity.viewModels
-import ru.netology.nmedia.data.Post
+import ru.netology.nmedia.activity.PostTextActivity
 import ru.netology.nmedia.databinding.ActivityMainBinding
 import ru.netology.nmedia.viewmodel.PostAdapter
 import ru.netology.nmedia.viewmodel.PostViewModel
-import java.util.*
 
 class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
         val binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         val viewModel by viewModels<PostViewModel>()
-
         val adapter = PostAdapter(viewModel)
 
         binding.listView.adapter = adapter
@@ -29,62 +26,29 @@ class MainActivity : AppCompatActivity() {
             adapter.list = posts
         }
 
-        fun endContextEdit(view:View) {
-            viewModel.setEditPostEmpty()
-            binding.content.clearFocus()
-            hideKeyboard(view)
+        viewModel.textToShare.observe(this) { postText ->
+            val intent = Intent().apply {
+                action = Intent.ACTION_SEND
+                putExtra(Intent.EXTRA_TEXT, postText)
+                type = "text/plain"
+            }
+
+            val shareIntent = Intent.createChooser(intent, getString(R.string.share_caption))
+            startActivity(shareIntent)
         }
 
-        binding.applyPostButton.setOnClickListener {
-            with(binding.content) {
-                if (text.isNotBlank()) {
-                    if (viewModel.isNewPost()) {
-                        viewModel.new(
-                            Post(
-                                0,
-                                "'Me",
-                                Date(),
-                                text.toString(),
-                                false,
-                                0,
-                                0,
-                                0
-                            )
-                        )
-                    } else {
-                        viewModel.edit(
-                            viewModel.editPost.value!!.id,
-                            text.toString()
-                        )
-                    }
-                }
-                endContextEdit(this)
+        val postTextActivityResultLauncher = registerForActivityResult(PostTextActivity.ResultContract) { postContent ->
+            if (!postContent.isNullOrBlank()) {
+                viewModel.savePostContent(postContent)
             }
         }
 
-        binding.discardPostButton.setOnClickListener {
-            endContextEdit(binding.content)
+        viewModel.editEvent.observe(this) {
+            postTextActivityResultLauncher.launch(viewModel.postToEdit.postText)
         }
 
-        viewModel.editPost.observe(this) {
-            with (binding.content) {
-                setText(it.postText)
-                if (text.isNotBlank()) {
-                    requestFocus()
-                    showKeyboard(this)
-                }
-            }
-        }
-
-        binding.content.setOnFocusChangeListener { _, _ ->
-            with(binding) {
-                if (content.isFocused) {
-                    discardPostButton.visibility = VISIBLE
-                } else {
-                    discardPostButton.visibility = GONE
-                }
-            }
+        binding.addButton.setOnClickListener {
+            viewModel.onAddClicked()
         }
     }
-
 }

@@ -1,38 +1,49 @@
 package ru.netology.nmedia.viewmodel
 
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import ru.netology.nmedia.data.ClickEvents
-import ru.netology.nmedia.data.PostRepository
-import ru.netology.nmedia.data.Post
+import ru.netology.nmedia.data.*
 import ru.netology.nmedia.getPostsList
 import java.util.*
 
 class PostViewModel: ViewModel(), ClickEvents {
     private val repository: PostRepository = PostRepositoryImpl(getPostsList())
     val data = repository.getAll()
-    private val emptyPost = Post(0,"", Date(0L),"",false,0,0,0)
-    var editPost = MutableLiveData<Post>(emptyPost)
 
-    fun setEditPostEmpty() { editPost.value = emptyPost }
-    fun isNewPost(): Boolean {
-        return editPost.value == emptyPost
-    }
+    val textToShare = SingleLiveEvent<String>()
+    val editEvent = SingleLiveEvent<Unit>()
+
+    var postToEdit: Post = EMPTY_POST
 
     override fun onLikeClicked(post: Post) = repository.like(post)
 
-    override fun onShareClicked(post: Post) = repository.share(post)
-
-    override fun onDeleteClicked(post: Post) {
-        if (post != editPost.value) { repository.delete(post)}
+    override fun onShareClicked(post: Post) {
+        repository.share(post)
+        textToShare.value = post.postText
     }
+
+    override fun onDeleteClicked(post: Post) = repository.delete(post)
 
     override fun onEditClicked(post: Post) {
-        editPost.value  = post
+        postToEdit = post
+        editEvent.call()
     }
 
-    fun new(post: Post) =  repository.new(post)
+    override fun onAddClicked() {
+        postToEdit = EMPTY_POST
+        editEvent.call()
+    }
 
-    fun edit(postId: Long, text: String) =  repository.edit(postId,text)
-
+    fun savePostContent(postContent: String) {
+        if (postToEdit.id == 0L) {
+            repository.new(
+                EMPTY_POST.copy(authorName = "Me", postDate = Date(), postText = postContent)
+            )
+        } else {
+            repository.edit(
+                postToEdit.id,
+                postContent
+            )
+        }
+        postToEdit = EMPTY_POST
+    }
 }
