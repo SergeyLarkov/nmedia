@@ -1,6 +1,7 @@
 package ru.netology.nmedia
 
 import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
@@ -49,6 +50,12 @@ class MainActivity : AppCompatActivity() {
 
         binding.addButton.setOnClickListener {
             viewModel.onAddClicked()
+        }
+
+        viewModel.videoEvent.observe(this) { urlVideo ->
+            val address = Uri.parse(urlVideo)
+            val intent = Intent(Intent.ACTION_VIEW, address)
+            startActivity(intent)
         }
     }
 }

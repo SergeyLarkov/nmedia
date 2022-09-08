@@ -27,7 +27,7 @@ class PostTextActivity: AppCompatActivity() {
         binding.okButton.setOnClickListener {
             val postText = binding.content.text
 
-            if (text.isNullOrBlank()) {
+            if (postText.isNullOrBlank()) {
                 setResult(Activity.RESULT_CANCELED, intent)
             } else {
                 intent.putExtra(Intent.EXTRA_TEXT, postText.toString())

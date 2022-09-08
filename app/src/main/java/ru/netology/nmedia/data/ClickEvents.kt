@@ -6,4 +6,5 @@ interface ClickEvents {
     fun onDeleteClicked(post: Post)
     fun onEditClicked(post: Post)
     fun onAddClicked()
+    fun onVideoClicked(post: Post)
 }

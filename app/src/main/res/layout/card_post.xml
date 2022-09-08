@@ -48,9 +48,9 @@
         android:layout_height="wrap_content"
         android:background="@android:color/transparent"
         android:contentDescription="options"
+        app:icon="@drawable/ic_option_24"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/authorAvatarImageView"
-        app:icon="@drawable/ic_option_24" />
+        app:layout_constraintTop_toTopOf="@id/authorAvatarImageView" />
 
     <androidx.constraintlayout.widget.Barrier
         android:id="@+id/headerBarrier"
@@ -59,6 +59,35 @@
         app:barrierDirection="bottom"
         app:constraint_referenced_ids="authorAvatarImageView, postDate, optionsButton" />
 
+    <ImageView
+        android:id="@+id/videoPreview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/preview"
+        android:contentDescription="Video preview image"
+        app:layout_constraintTop_toBottomOf="@id/headerBarrier" />
+
+    <ImageButton
+        android:id="@+id/imageButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        app:layout_constraintBottom_toBottomOf="@id/videoPreview"
+        app:layout_constraintEnd_toEndOf="@id/videoPreview"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="@id/videoPreview"
+        app:layout_constraintTop_toTopOf="@id/videoPreview"
+        android:contentDescription="Play video button"
+        app:srcCompat="@android:drawable/ic_media_play" />
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/video"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:constraint_referenced_ids="videoPreview, imageButton"
+        />
+
+
     <TextView
         android:id="@+id/postText"
         android:layout_width="match_parent"
@@ -66,7 +95,7 @@
         android:layout_marginTop="@dimen/common_spacing"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/headerBarrier"
+        app:layout_constraintTop_toBottomOf="@id/videoPreview"
         tools:text="text" />
 
     <com.google.android.material.button.MaterialButton
@@ -74,14 +103,14 @@
         style="@style/Widget.Theme.LikeButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:checkable="true"
         android:background="@android:color/transparent"
+        android:checkable="true"
         android:contentDescription="like button"
+        app:icon="@drawable/ic_like_check_24"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/postText"
-        app:icon="@drawable/ic_like_check_24"
-        tools:text="1009000"
-        tools:checked="true"/>
+        tools:checked="true"
+        tools:text="1009000" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/shareButton"
@@ -91,10 +120,10 @@
         android:layout_marginStart="@dimen/button_padding"
         android:background="@android:color/transparent"
         android:contentDescription="share button"
+        app:icon="@drawable/ic_share_24"
         app:layout_constraintStart_toEndOf="@id/likeButton"
         app:layout_constraintTop_toTopOf="@id/likeButton"
-        app:icon="@drawable/ic_share_24"
-        tools:text="999100"/>
+        tools:text="999100" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/viewButton"
@@ -103,9 +132,9 @@
         android:layout_height="wrap_content"
         android:background="@android:color/transparent"
         android:contentDescription="view button"
+        app:icon="@drawable/ic_visibility_24"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/likeButton"
-        app:icon="@drawable/ic_visibility_24"
         tools:text="100" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

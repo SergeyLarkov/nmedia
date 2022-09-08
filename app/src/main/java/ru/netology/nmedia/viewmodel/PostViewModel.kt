@@ -11,6 +11,7 @@ class PostViewModel: ViewModel(), ClickEvents {
 
     val textToShare = SingleLiveEvent<String>()
     val editEvent = SingleLiveEvent<Unit>()
+    val videoEvent = SingleLiveEvent<String>()
 
     var postToEdit: Post = EMPTY_POST
 
@@ -31,6 +32,12 @@ class PostViewModel: ViewModel(), ClickEvents {
     override fun onAddClicked() {
         postToEdit = EMPTY_POST
         editEvent.call()
+    }
+
+    override fun onVideoClicked(post: Post) {
+        if (!post.urlVideo.isNullOrBlank()) {
+            videoEvent.value = post.urlVideo
+        }
     }
 
     fun savePostContent(postContent: String) {
