@@ -79,7 +79,7 @@ fun getPostsList(): List<Post> {
          "User",
          Date(2022,1,1,0,0,0),
          "Еще мультик",
-         "https://www.youtube.com/watch?v=by8VuzgbLK8",
+         "https://www.youtube.com/watch?v=MhWOFOzKM2M",
          false,
          0,
          0,
