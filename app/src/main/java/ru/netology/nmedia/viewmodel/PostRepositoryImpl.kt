@@ -4,8 +4,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import ru.netology.nmedia.data.Post
 import ru.netology.nmedia.data.PostRepository
-import ru.netology.nmedia.getPostsList
-import java.util.*
 
 class PostRepositoryImpl(posts:List<Post>): PostRepository {
     private val data = MutableLiveData(posts)
@@ -38,7 +36,7 @@ class PostRepositoryImpl(posts:List<Post>): PostRepository {
     }
 
     override fun new(post:Post) {
-        data.value = listOf<Post>(post.copy(newPostId)) + data.value!!
+        data.value = listOf(post.copy(id = newPostId)) + data.value!!
         newPostId++
     }
 

@@ -4,7 +4,6 @@ import android.content.Intent
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.activity.viewModels
 import ru.netology.nmedia.activity.PostTextActivity
 import ru.netology.nmedia.databinding.ActivityMainBinding
 import ru.netology.nmedia.viewmodel.PostAdapter
@@ -18,7 +17,7 @@ class MainActivity : AppCompatActivity() {
         val binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val viewModel by viewModels<PostViewModel>()
+        val viewModel = PostViewModel(application)
         val adapter = PostAdapter(viewModel)
 
         binding.listView.adapter = adapter

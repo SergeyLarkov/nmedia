@@ -1,12 +1,12 @@
 package ru.netology.nmedia.viewmodel
 
-import androidx.lifecycle.ViewModel
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
 import ru.netology.nmedia.data.*
-import ru.netology.nmedia.getPostsList
 import java.util.*
 
-class PostViewModel: ViewModel(), ClickEvents {
-    private val repository: PostRepository = PostRepositoryImpl(getPostsList())
+class PostViewModel(application: Application): AndroidViewModel(application), ClickEvents {
+    private val repository: PostRepository = FilePostRepositoryImpl(application)
     val data = repository.getAll()
 
     val textToShare = SingleLiveEvent<String>()
