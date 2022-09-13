@@ -3,10 +3,15 @@ package ru.netology.nmedia.viewmodel
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import ru.netology.nmedia.data.*
+import ru.netology.nmedia.db.AppDb
+import ru.netology.nmedia.db.SqlPostRepositoryImpl
 import java.util.*
 
 class PostViewModel(application: Application): AndroidViewModel(application), ClickEvents {
-    private val repository: PostRepository = FilePostRepositoryImpl(application)
+    private val repository:PostRepository = SqlPostRepositoryImpl(
+            dao = AppDb.getInstance(application).postDao
+    )
+
     val data = repository.getAll()
 
     val textToShare = SingleLiveEvent<String>()
@@ -43,7 +48,7 @@ class PostViewModel(application: Application): AndroidViewModel(application), Cl
     fun savePostContent(postContent: String) {
         if (postToEdit.id == 0L) {
             repository.new(
-                EMPTY_POST.copy(authorName = "Me", postDate = Date(), postText = postContent)
+                EMPTY_POST.copy(authorName = "Me", postDate = Date().toString(), postText = postContent)
             )
         } else {
             repository.edit(

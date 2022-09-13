@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import ru.netology.nmedia.data.Post
 import ru.netology.nmedia.data.PostRepository
 
-class PostRepositoryImpl(posts:List<Post>): PostRepository {
+class MemoryPostRepositoryImpl(posts:List<Post>): PostRepository {
     private val data = MutableLiveData(posts)
     private var newPostId: Long = 1000L
 

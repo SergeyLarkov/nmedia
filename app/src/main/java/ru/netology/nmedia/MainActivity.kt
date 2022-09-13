@@ -11,6 +11,8 @@ import ru.netology.nmedia.viewmodel.PostViewModel
 
 class MainActivity : AppCompatActivity() {
 
+    private var draftText = String()
+
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
@@ -38,13 +40,26 @@ class MainActivity : AppCompatActivity() {
         }
 
         val postTextActivityResultLauncher = registerForActivityResult(PostTextActivity.ResultContract) { postContent ->
-            if (!postContent.isNullOrBlank()) {
-                viewModel.savePostContent(postContent)
+            if (!postContent.second.isNullOrBlank()) {
+                when (postContent.first) {
+                    PostTextActivity.TEXT_TO_POST -> {
+                        viewModel.savePostContent(postContent.second.toString())
+                        draftText = ""
+                    }
+                    PostTextActivity.TEXT_TO_DRAFT ->
+                        if (viewModel.postToEdit.id == 0L) {
+                            draftText = postContent.second.toString()
+                        } else draftText = ""
+                }
             }
         }
 
         viewModel.editEvent.observe(this) {
-            postTextActivityResultLauncher.launch(viewModel.postToEdit.postText)
+            if (viewModel.postToEdit.id == 0L) {
+                postTextActivityResultLauncher.launch(draftText)
+            } else {
+                postTextActivityResultLauncher.launch(viewModel.postToEdit.postText)
+            }
         }
 
         binding.addButton.setOnClickListener {
